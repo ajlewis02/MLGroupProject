@@ -7,7 +7,9 @@
 Our class project, Dynamic Pruning, is about designing and testing a new pruning method designed to both speed up training and improve model performance.
 ## Introduction
 Overparameterized neural networks are computationally expensive to train and use. One way to solve this problem is to prune a trained neural net by deleting specific weights. Pruning in this way decreases the parameter count of the neural net, which decreases the required storage space and the computational resources required to make predictions. However, this method requires that the neural net be trained while fully connected [4]. 
+
 A recent paper, “Lottery Ticket Hypothesis,” [1] introduced a methodology to find the “winning ticket” in a fully-connected network, which is a subnetwork with ~90% fewer parameters and similar or in some cases higher accuracy than the original network. The methodology used by [1] is an iterative pruning technique where after training the network p% of the weights with a value below a threshold are removed, after the pruning process the weights are reset to their initial value and the process is again repeated. These winning tickets are faster to train than their fully-connected counterparts, but because the process of creating the winning tickets requires training the neural net many times it does not actually result in a faster overall training time.
+
 We propose a pruning method where instead of resetting the weights to their initial value after pruning we carry on the training with the trained parameter values. We hypothesize that this method will tend to take lesser epochs to converge and reduce overall training time while creating a smaller network.
 ## Implementation
 For this project, we are using the Pytorch library to create, train, prune, and evaluate models. We also use the matplotlib library to automatically generate graphs.
@@ -29,6 +31,7 @@ The penguin's species could be one of:
 * Chinstrap
 ## Data Preprocessing
 In order to facilitate training, the data was lightly preprocessed. The labels and classification data dimensions (island, sex, and year) were converted into one-hot vectors, and the other data dimensions were normalized by a constant value to ensure they were in a 0-1 range. Finally, we ignored any entries which had a value of NA for any field.
+
 After preprocessing, the data was of the format:
 ```
 0,1,0|0,1,0,1.022,0.825,1.125,1.05,1,0,0,0,1
@@ -55,9 +58,11 @@ We put this model through four different trials in order to test our pruning met
 ### Unpruned Model
 First, we trained and tested this model without any pruning at all. On the test data, the model performed with a loss of 0.4699.
 ![Unpruned Model Training Performance](./penguin_graphs/penguins_unpruned.png)
+
 (Note that there were 4 batches per epoch, and performance during training was recorded per epoch - 4 units on the x-axis of these graphs corresponds to 1 epoch of training.)
 ### Pruned Model
 Next, we tested the model after pruning the 30% lowest weights from the model. After pruning, the model performed on the test data with a loss of 0.4812.
+
 This trial is defined by training a model normally and then pruning the fully-trained model. Because the training part is untouched, we reused the model trained from the first trial.
 ### Lottery Ticket
 Third, we tested the performance of the model using the Lottery Ticket method, by resetting the weights and biases of the model to its original initialization without resetting the pruning. The model performed with a loss of 0.4672 on the test data.
@@ -68,6 +73,7 @@ Finally, we reset the model in order to test our pruning method. For this model,
 ![Dynamic Pruning Model Training Performance](./penguin_graphs/penguins_novel.png)
 ## Running The Code
 In order to run all of these tests at once, simply run [penguin_all.py](./penguin_all.py). It requires Pytorch and MatplotLib, and assumes that the computer running it has a GPU. Note that the program will create a file, ``penguin_checkpoint.pt`` within its working directory.
+
 If your device does not have a GPU, or if you don't want to use your GPU, change line 8,
 ```python
 device = "cuda"
@@ -78,6 +84,7 @@ device = "cpu"
 ```
 ## Penguin Conclusions
 Using the unpruned model performance as a baseline, we can note improved performance from both the lottery ticket method and our dynamic pruning method. The model produced by normal pruning seemed to perform slightly worse than the baseline.
+
 Due to time and resource constraints, the models could not be trained until perfect convergence. However, the unpruned and lottery ticket models seem to have very nearly converged by the end of the 4,000 epochs. However, the model trained with dynamic pruning seems to have not converged within 4,000 epochs, which suggests that dynamic pruning improves a model's capability to learn.
 # (Other datasets)
 # Conclusion
