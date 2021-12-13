@@ -2,6 +2,7 @@ import torch
 import matplotlib.pyplot as plt
 from torch.utils.data import Dataset
 import torch.nn as nn
+from torch.nn.utils import prune
 
 device = "cuda"
 
@@ -31,24 +32,27 @@ class PenguinsDataset(Dataset):
 class PenguinModel(nn.Module):
     def __init__(self):
         super(PenguinModel, self).__init__()
-        self.stack = nn.Sequential(
-            nn.Linear(12, 12),
-            nn.ReLU(),
-            # nn.Linear(12, 12),
-            # nn.ReLU(),
-            nn.Linear(12, 3),
-            nn.Tanh(),
-        )
+        self.relu = nn.ReLU()
+        self.tanh = nn.Tanh()
+        self.stack1 = nn.Linear(12, 12)
+        self.stack2 = nn.Linear(12, 3)
 
     def forward(self, x):
-        return self.stack(x)
+        return self.tanh(self.stack2(self.relu(self.stack1(x))))
 
 
 train_dataset = PenguinsDataset(0, 200)
 val_dataset = PenguinsDataset(200, 300)
 
 model = PenguinModel()
+
 model = model.to(device)
+# print(model.state_dict()["stack1.bias"].detach().clone())
+torch.save({"stack1.bias": model.state_dict()["stack1.bias"].detach().clone(),
+            "stack2.bias": model.state_dict()["stack2.bias"].detach().clone(),
+            "stack1.weight_orig": model.state_dict()["stack1.weight"].detach().clone(),
+            "stack2.weight_orig": model.state_dict()["stack2.weight"].detach().clone()},
+           "./penguin_checkpoint.pt")
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 
@@ -57,7 +61,53 @@ val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=100, shuffl
 
 train_performance = []
 val_performance = []
-epochs = 4000
+epochs = 1000
+for t in range(epochs):
+    if t % 100 == 0:
+        print(t)
+    for batch, (X, y) in enumerate(train_dataloader):
+        # print("\t"+str(batch))
+        pred = model(X)
+        loss = loss_fn(pred, y)
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        val_X, val_y = next(iter(val_dataloader))
+        val_pred = model(val_X)
+        val_loss = loss_fn(val_pred, val_y)
+
+        train_performance.append(loss.item())
+        val_performance.append(val_loss.item())
+
+to_prune = ((model.stack1, "weight"), (model.stack2, "weight"))
+prune.global_unstructured(to_prune, pruning_method=prune.L1Unstructured, amount=0.3)
+
+plt.plot(train_performance, label="Training Loss")
+plt.plot(val_performance, label="Validation Loss")
+plt.legend()
+plt.title("Model Training (Lottery Ticket round 1)")
+plt.show()
+
+test_dataset = PenguinsDataset(300, 333)
+test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=33, shuffle=False)
+test_X, test_y = next(iter(test_dataloader))
+test_pred = model(test_X)
+test_loss = loss_fn(test_pred, test_y)
+print(test_loss.item())
+# print(model.state_dict())
+
+checkpoint = torch.load("./penguin_checkpoint.pt")
+checkpoint["stack1.weight_mask"] = model.state_dict()["stack1.weight_mask"].detach().clone()
+checkpoint["stack2.weight_mask"] = model.state_dict()["stack2.weight_mask"].detach().clone()
+# print(checkpoint["stack1.bias"])
+model.load_state_dict(checkpoint)
+# print(model.state_dict()["stack1.bias"].detach().clone())
+
+train_performance = []
+val_performance = []
+epochs = 1000
 for t in range(epochs):
     if t % 100 == 0:
         print(t)
@@ -80,12 +130,12 @@ for t in range(epochs):
 plt.plot(train_performance, label="Training Loss")
 plt.plot(val_performance, label="Validation Loss")
 plt.legend()
-plt.title("Model Training (Unpruned)")
+plt.title("Model Training (Lottery Ticket)")
 plt.show()
 
-test_dataset = PenguinsDataset(300, 333)
-test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=33, shuffle=False)
 test_X, test_y = next(iter(test_dataloader))
 test_pred = model(test_X)
 test_loss = loss_fn(test_pred, test_y)
 print(test_loss.item())
+# print(model.state_dict())
+
