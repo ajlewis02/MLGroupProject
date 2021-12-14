@@ -87,5 +87,42 @@ device = "cpu"
 Using the unpruned model performance as a baseline, we can note improved performance from both the lottery ticket method and our dynamic pruning method. The model produced by normal pruning seemed to perform slightly worse than the baseline.
 
 Due to time and resource constraints, the models could not be trained until perfect convergence. However, the unpruned and lottery ticket models seem to have very nearly converged by the end of the 4,000 epochs. However, the model trained with dynamic pruning seems to have not converged within 4,000 epochs, which suggests that dynamic pruning improves a model's capability to learn.
-# (Other datasets)
+# Fashion MNIST
+## Data Preprocessing
+## Model Design
+## Trials
+### Unpruned Model
+### Pruned Model
+### Lottery Ticket
+### Dynamic Pruning Model
+## Running The Code
+## MNIST Conclusions
+# Flowers
+## Data Preprocessing
+## Model Design
+## Trials
+### Unpruned Model
+### Pruned Model
+### Lottery Ticket
+### Dynamic Pruning Model
+## Running The Code
+## Flowers Conclusions
+# CIFAR-10
+## Data Preprocessing
+## Model Design
+## Trials
+### Unpruned Model
+### Pruned Model
+### Lottery Ticket
+### Dynamic Pruning Model
+## Running The Code
+## CIFAR-10 Conclusions
 # Conclusion
+# References
+[1] Frankle, J., & Carbin, M. (2019). The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks. arXiv: Learning.
+
+[2] Frankle, J., Dziugaite, G.K., Roy, D.M., & Carbin, M. (2021). Pruning Neural Networks at Initialization: Why are We Missing the Mark? ArXiv, abs/2009.08576.
+
+[3] Tanaka, H., Kunin, D., Yamins, D.L., & Ganguli, S. (2020). Pruning neural networks without any data by iteratively conserving synaptic flow. ArXiv, abs/2006.05467.
+
+[4] Davis Blalock, Jose Javier Gonzalez Ortiz, Jonathan Frankle, and John Guttag. (2020). What is the State of Neural Network Pruning? ArXiv, abs/2003.03033.
