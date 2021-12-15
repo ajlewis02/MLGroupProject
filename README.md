@@ -143,12 +143,27 @@ The model used for training this dataset was 3 convultion layes + 2 layer fully 
 We put this model through four different trials in order to test our pruning method. Each time the model was trained, it was trained for 600 epochs with learning rate (alpha) of 0.0001 and weight_decay of 0.00001. The batch size for all the trails were kept 32 for each of training, validation and test dataset.
 
 ### Unpruned Model
+First, we trained and tested this model without any pruning at all. On the test data, the model performed with an accuracy of 0.58 and while the training period had the validation accuracy of 0.75 on the best model. 
 
+![Unpruned Model Training Performance](./flowe_results/basic_result.png)
 ### Pruned Model
+Next, we tested the model after pruning the 30% lowest weights from the model. After pruning, the model performed on the test data with an accuracy of 0.64 and while the training period had the validation accuracy of 0.7875 on the best model. 
+
+This trial is defined by training a model normally and then pruning the fully-trained model. Because the training part is untouched, we reused the model trained from the first trial.
+![Pruned Model Training Performance](./flowe_results/pruned_result.png)
 ### Lottery Ticket
+Waiting for results
 ### Dynamic Pruning Model
+Finally, we reset the model in order to test our pruning method. For this model, we pruned the 17% lowest weights from the model 1/3rd and 2/3rds of the way through training, for a total of just over 30% of the weights removed. The model performed on the test data with an accuracy of 0.56 and while the training period had the validation accuracy of 0.75 on the best model. 
+
+![Dynamic Pruning Model Training Performance](./flowe_results/novel_result.png)
 ## Running The Code
+In order to run the unpruned netowrk, simply run [flower_basic.py](./flower_basic.py).
+In order to run the pruned netowrk, simply run [flower_pruned.py](./flower_pruned.py).
+In order to run the lottery ticket implementation, simply run [flower_lottery.py](./flower_lottery.py).
+In order to run the dynamic pruning, simply run [flower_novel_pruning.py](./flower_novel_pruning.py).
 ## Flowers Conclusions
+Waiting for final results
 # CIFAR-10
 ## Data Preprocessing
 ## Model Design
