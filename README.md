@@ -92,9 +92,17 @@ Due to time and resource constraints, the models could not be trained until perf
 ## Model Design
 ## Trials
 ### Unpruned Model
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ajlewis02/MLGroupProject/blob/fashion_mnist/mpgeary_MLFinalProj_FMNIST_UnprunedModel.ipynb)
+
 ### Pruned Model
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ajlewis02/MLGroupProject/blob/fashion_mnist/mpgeary_MLFinalProj_FMNIST_PrunedModel.ipynb)
+
 ### Lottery Ticket
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ajlewis02/MLGroupProject/blob/fashion_mnist/mpgeary_MLFinalProj_FMNIST_LotteryTicket.ipynb)
+
 ### Dynamic Pruning Model
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ajlewis02/MLGroupProject/blob/fashion_mnist/mpgeary_MLFinalProj_FMNIST_NovelPrunedModel.ipynb)
+
 ## Running The Code
 ## MNIST Conclusions
 # Flowers
