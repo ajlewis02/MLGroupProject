@@ -88,6 +88,9 @@ Using the unpruned model performance as a baseline, we can note improved perform
 
 Due to time and resource constraints, the models could not be trained until perfect convergence. However, the unpruned and lottery ticket models seem to have very nearly converged by the end of the 4,000 epochs. However, the model trained with dynamic pruning seems to have not converged within 4,000 epochs, which suggests that dynamic pruning improves a model's capability to learn.
 # Fashion MNIST
+
+## Model Metrics Provided in Colab Pages
+
 ### Unpruned Model
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1GOZwJFO1r4FI8VvrhQCYka0oQaW7tait?usp=sharing)
 
@@ -99,6 +102,12 @@ Due to time and resource constraints, the models could not be trained until perf
 
 ### Dynamic Pruning Model
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1cL2z82Brv3aPKEPvJFbGldJIRYnEzrDg?usp=sharing)
+
+### Fashion MNIST Conclusions
+For larger models, pruning was more of a detriment to model train time than helping short term. Increasing training/pruning time for more accurate model would help, but speed of model train time would suffer as a result.
+
+The model was not trained to convergance in order to see how well the result performed under time constraint. In the future, training to convergance may provide insight on how well the pruning methods would fair under regular conditions.
+
 
 # Flowers
 ## Data Preprocessing
