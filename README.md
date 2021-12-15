@@ -110,13 +110,30 @@ Due to time and resource constraints, the models could not be trained until perf
 ## Running The Code
 ## Flowers Conclusions
 # CIFAR-10
+[CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset has 10 classes: ‘airplane’, ‘automobile’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’. The images in CIFAR-10 are of size 3x32x32, i.e. 3-channel color images of 32x32 pixels in size. It consists of 50000 images in training set and 10000 for the testset.
 ## Data Preprocessing
+Pytorch provides support for CIFAR-10 dataset. The images are stored in PIL format and to be used in pytorch need to be converted into tensors.
 ## Model Design
+Model used here is a convolutional network, consisting of 3 convolutional layers followed by 2 fully connected layer. There is a pooling operation applied after second and third convolutional layer and ouput of all the convolutional layer passes through relu function. Softmax is applied to the ouput.
+``` python
+def forward(self,x):
+    x = F.relu(self.conv1(x))
+    x = self.pool(F.relu(self.conv2(x)))
+    x = self.pool(F.relu(self.conv3(x)))
+    x = torch.flatten(x,1)
+    x = F.relu(self.fc1(x))
+    x = F.softmax(self.fc2(x), dim=1)
+    return x
+```
 ## Trials
+Model was trained for 50 epochs both with and without pruning ans was able to reach ~73% accuracy
 ### Unpruned Model
+![Unpruned Model Training Performance](./cifar_graphs/custom_unpruned.png)
 ### Pruned Model
+
 ### Lottery Ticket
 ### Dynamic Pruning Model
+![Pruned Model Training Performance](./cifar_graphs/custom_pruned.png)
 ## Running The Code
 ## CIFAR-10 Conclusions
 # Conclusion
