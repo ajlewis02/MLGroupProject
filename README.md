@@ -126,16 +126,26 @@ def forward(self,x):
     return x
 ```
 ## Trials
-Model was trained for 50 epochs both with and without pruning ans was able to reach ~73% accuracy
+Model was trained for 50 epochs both with and without pruning ans was able to reach ~73% accuracy.
 ### Unpruned Model
-![Unpruned Model Training Performance](./cifar_graphs/custom_unpruned.png)
+Model was first trained without any pruning to establish a baseline. It started with a loss of 2.162, after training for 50 epochs it was able to reach minimum loss of 1.530, giving 73% accuracy on test set.
+![Unpruned Model Training Performance](./cifar_graphs/custom-unpruned.png)
 ### Pruned Model
-
-### Lottery Ticket
+Pruning was done with a random approach. 5 random epochs were selected where unstructured pruning was performed, removing 20% of the convolutional weigths and 40% of the fully connected weights.
 ### Dynamic Pruning Model
-![Pruned Model Training Performance](./cifar_graphs/custom_pruned.png)
+Model started with a loss of 2.164, after running for 50 epochs it showed a minimum loss of 1.520. This model converged faster than the non-pruned model.
+![Pruned Model Training Performance](./cifar_graphs/custom-pruned.png)
 ## Running The Code
+To start pruning just uncomment the below given snippet in the training loop
+``` python
+if epoch in pruning_epochs:
+      prune_model(net)
+      print("pruning....")
+```
 ## CIFAR-10 Conclusions
+Initial training pace of the model with pruning was similar to the unpruned model, but after the first pruning step was applied to the model it was able to reach a lower loss faster than unpruned model. Although, once the pruning step was applied there was a spike in loss and the model had to re-learn to make up for the lost weights.
+
+The pruning approach gave a model with similar accuracy with increased sparsity and faster convergence.
 # Conclusion
 # References
 [1] Frankle, J., & Carbin, M. (2019). The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks. arXiv: Learning.
