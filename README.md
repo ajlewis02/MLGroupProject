@@ -153,7 +153,9 @@ Next, we tested the model after pruning the 30% lowest weights from the model. A
 This trial is defined by training a model normally and then pruning the fully-trained model. Because the training part is untouched, we reused the model trained from the first trial.
 ![Pruned Model Training Performance](./flowe_results/pruned_result.png)
 ### Lottery Ticket
-Waiting for results
+Third, we tested the performance of the model using the Lottery Ticket method, by resetting the weights and biases of the model to its original initialization without resetting the pruning. the model performed on the test data with an accuracy of 0.20 and while the training period had the validation accuracy of 0.25 on the best model.
+![Lottery Ticket Model Training Performance](./flowe_results/lottery_2.png)
+
 ### Dynamic Pruning Model
 Finally, we reset the model in order to test our pruning method. For this model, we pruned the 17% lowest weights from the model 1/3rd and 2/3rds of the way through training, for a total of just over 30% of the weights removed. The model performed on the test data with an accuracy of 0.56 and while the training period had the validation accuracy of 0.75 on the best model. 
 
