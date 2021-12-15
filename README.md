@@ -11,8 +11,7 @@ For this project, we are using the Pytorch library to create, train, prune, and 
 ## Testing
 In order to test our pruning method, we have implemented our pruning method on models designed for four different datasets. We also implemented other pruning methods on these same models, so as to compare our method to existing pruning methods. The datasets we used are:
 * The [Penguin Dataset](https://allisonhorst.github.io/palmerpenguins/), a dataset containing body measurements for over 300 different penguins labeled by species
-* The [Flower Dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/1ECTVN), a dataset cantaining for over 3670 images of flowers of different species.
-* The [CIFAR-10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html), dataset consists of 10 classes and has 50000 training and 10000 test images.
+* The [Flower Dataest](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/1ECTVN), a dataset cantaining for over 3670 images of flowers of different species. 
 # Penguins
 The Penguin Dataset is a dataset containing body measurements of penguins and is labeled by species. The problem to be solved with a neural net is to classify a penguin's species given:
 * The island from which the penguin was found
@@ -218,6 +217,9 @@ Initial training pace of the model with pruning was similar to the unpruned mode
 
 The pruning approach gave a model with similar accuracy with increased sparsity and faster convergence.
 # Conclusion
+Across all four datasets, our pruning method resulted in a slight improvement in model performance and decreased the time to converge. This shows that our pruning method can result in improved model performance and training speed across a wide variety of model structures and data types.
+
+We also identified important hyperparameters for our pruning method. Firstly, the efficacy of our pruning method depends a lot on the type of pruning done during each pruning step. Secondly, our pruning method also depends greatly on the selected timings of the pruning steps. Sucessfully using our pruning method is likely to require multiple iterations to attempt to find optimal values of these hyperparameters for a given model structure and data type. Further research may be useful in determining whether there are certain hyperparameter values which are much more likely to result in higher performance than otherwise.
 # References
 [1] Frankle, J., & Carbin, M. (2019). The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks. arXiv: Learning.
 
