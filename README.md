@@ -12,6 +12,8 @@ For this project, we are using the Pytorch library to create, train, prune, and 
 In order to test our pruning method, we have implemented our pruning method on models designed for four different datasets. We also implemented other pruning methods on these same models, so as to compare our method to existing pruning methods. The datasets we used are:
 * The [Penguin Dataset](https://allisonhorst.github.io/palmerpenguins/), a dataset containing body measurements for over 300 different penguins labeled by species
 * The [Flower Dataest](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/1ECTVN), a dataset cantaining for over 3670 images of flowers of different species. 
+* The [CIFAR-10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html), dataset consists of 10 classes and has 50000 training and 10000 test images.
+* The [Fasion-MNIST Dataset](https://github.com/zalandoresearch/fashion-mnist)
 # Penguins
 The Penguin Dataset is a dataset containing body measurements of penguins and is labeled by species. The problem to be solved with a neural net is to classify a penguin's species given:
 * The island from which the penguin was found
