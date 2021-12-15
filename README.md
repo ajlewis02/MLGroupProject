@@ -123,7 +123,7 @@ In order to start working with the dataset we performed the following steps:
  
 ## Model Design
 The model used for training this dataset was 3 convultion layes + 2 layer fully connected feed forward neural network. The model specification are as follows in the give order - 
--Convolution Network
+**Feature Extraction
 * Convolution layer 1 (in_channels=3, out_channels=12, kernel_size=3, stride=1, padding=1)
 * Batch normalization 2d (num_features=12)
 * ReLU activation after first convolution layer
@@ -134,7 +134,7 @@ The model used for training this dataset was 3 convultion layes + 2 layer fully 
 * Batch normalization 2d (num_features=32)
 * ReLU activation after third convolution layer
 
-- Fully connected Neural Network
+**Fully connected Neural Network
 * Linear Layer with 90*90*32 = 259,200 inputs and 32 outputs
 * ReLU activation function after the first linear network
 * Linear Layer with 32 inputs and 5 outputs as the output classes are 5. 
