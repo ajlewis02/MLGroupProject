@@ -1,8 +1,3 @@
-# TODO
-* This is just a rough draft and needs to be revised at some point!
-* Most of the intro is lifted from the proposal, and it may need to be reworked
-* Add your models! the penguins are lonely :(
-* Might need to come up with a better name
 # Dynamic Pruning
 Our class project, Dynamic Pruning, is about designing and testing a new pruning method designed to both speed up training and improve model performance.
 ## Introduction
