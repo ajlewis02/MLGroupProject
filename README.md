@@ -154,8 +154,8 @@ This trial is defined by training a model normally and then pruning the fully-tr
 ![Pruned Model Training Performance](./flowe_results/pruned_result.png)
 ### Lottery Ticket
 Third, we tested the performance of the model using the Lottery Ticket method, by resetting the weights and biases of the model to its original initialization without resetting the pruning. the model performed on the test data with an accuracy of 0.20 and while the training period had the validation accuracy of 0.25 on the best model.
-![Lottery Ticket Model Training Performance](./flowe_results/lottery_2.png)
 
+![Lottery Ticket Model Training Performance](./flowe_results/lottery_2.png)
 ### Dynamic Pruning Model
 Finally, we reset the model in order to test our pruning method. For this model, we pruned the 17% lowest weights from the model 1/3rd and 2/3rds of the way through training, for a total of just over 30% of the weights removed. The model performed on the test data with an accuracy of 0.56 and while the training period had the validation accuracy of 0.75 on the best model. 
 
@@ -166,7 +166,12 @@ In order to run the pruned netowrk, simply run [flower_pruned.py](./flower_prune
 In order to run the lottery ticket implementation, simply run [flower_lottery.py](./flower_lottery.py).
 In order to run the dynamic pruning, simply run [flower_novel_pruning.py](./flower_novel_pruning.py).
 ## Flowers Conclusions
-Waiting for final results
+Using the unpruned model performance as a baseline, we can note degraded performance from both the lottery ticket method and our dynamic pruning method. The model produced by normal pruning seemed to perform slightly better than the baseline.
+
+Due to time and resource constraints, the models could not be trained until perfect convergence. And we can see that Lottery Ticket model terribly performs on the given dataset. 
+Therefore, the dynamic purining method works better for pruning such netowrks that uses a small image dataset to learn the parameters. 
+However, the dynamic pruning did not prove to be better than one shot pruning, for more solid conclusion more trials are required. 
+
 # CIFAR-10
 ## Data Preprocessing
 ## Model Design
