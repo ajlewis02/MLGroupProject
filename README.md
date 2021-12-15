@@ -88,23 +88,18 @@ Using the unpruned model performance as a baseline, we can note improved perform
 
 Due to time and resource constraints, the models could not be trained until perfect convergence. However, the unpruned and lottery ticket models seem to have very nearly converged by the end of the 4,000 epochs. However, the model trained with dynamic pruning seems to have not converged within 4,000 epochs, which suggests that dynamic pruning improves a model's capability to learn.
 # Fashion MNIST
-## Data Preprocessing
-## Model Design
-## Trials
 ### Unpruned Model
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ajlewis02/MLGroupProject/blob/fashion_mnist/mpgeary_MLFinalProj_FMNIST_UnprunedModel.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1GOZwJFO1r4FI8VvrhQCYka0oQaW7tait?usp=sharing)
 
 ### Pruned Model
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ajlewis02/MLGroupProject/blob/fashion_mnist/mpgeary_MLFinalProj_FMNIST_PrunedModel.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1U9uL8PVFfAk6sELFoTGyGu8GbZVfQcnD?usp=sharing)
 
 ### Lottery Ticket
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ajlewis02/MLGroupProject/blob/fashion_mnist/mpgeary_MLFinalProj_FMNIST_LotteryTicket.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DEN0E8ZHVD_D3MezIch6noNJ5wddqFLc?usp=sharing)
 
 ### Dynamic Pruning Model
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ajlewis02/MLGroupProject/blob/fashion_mnist/mpgeary_MLFinalProj_FMNIST_NovelPrunedModel.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1cL2z82Brv3aPKEPvJFbGldJIRYnEzrDg?usp=sharing)
 
-## Running The Code
-## MNIST Conclusions
 # Flowers
 ## Data Preprocessing
 ## Model Design
