@@ -100,10 +100,50 @@ Due to time and resource constraints, the models could not be trained until perf
 ## Running The Code
 ## MNIST Conclusions
 # Flowers
+The Flower dataset containes images of the flower of different species and belonging to five different classes. This is a very famous dataset for image classification problem. Some of the important features of the dataset are - 
+* Imagse size 180x180 pixels
+* Training dataset conatins 3540 images
+* The validation dataset contains 80 images
+* The test dataset contains 50 images  
+
+The flowers can belong one of the following species:
+* daisy
+* dandelion
+* roses
+* sunflowers
+* tulip
+
 ## Data Preprocessing
+In order to start working with the dataset we performed the following steps:
+* Resized all the images to 180x180 just to be sure that all images are of the same size. 
+* Added an augmentation technique called Random horizontal flip with deafult probability of 0.5. This states that the probability of the image being originaly or horizontally flipped is 0.5. This is done to add variation in dataset.
+* Transformed the images to a tenor. This will scale the pixel values of 0-255 in the range of 0-1 and will change the datatype from numpy array to a tensor. 
+* Normalized the pixel values in between -1 to 1 by adding mean and deaviation of 0.5 to call channels. 
+ 
 ## Model Design
+The model used for training this dataset was 3 convultion layes + 2 layer fully connected feed forward neural network. The model specification are as follows in the give order - 
+-Convolution Network
+* Convolution layer 1 (in_channels=3, out_channels=12, kernel_size=3, stride=1, padding=1)
+* Batch normalization 2d (num_features=12)
+* ReLU activation after first convolution layer
+* Max pooling layer (kernel_size=2, stride=2)
+* Convolution layer 2 (in_channels=12, out_channels=20, kernel_size=3, stride=1, padding=1)
+* ReLU activation after second convolution layer
+* Convolution layer 3 (in_channels=20, out_channels=32, kernel_size=3, stride=1, padding=1)
+* Batch normalization 2d (num_features=32)
+* ReLU activation after third convolution layer
+
+- Fully connected Neural Network
+* Linear Layer with 90*90*32 = 259,200 inputs and 32 outputs
+* ReLU activation function after the first linear network
+* Linear Layer with 32 inputs and 5 outputs as the output classes are 5. 
+* Tanh activation in the last layer. 
+
 ## Trials
+We put this model through four different trials in order to test our pruning method. Each time the model was trained, it was trained for 600 epochs with learning rate (alpha) of 0.0001 and weight_decay of 0.00001. The batch size for all the trails were kept 32 for each of training, validation and test dataset.
+
 ### Unpruned Model
+
 ### Pruned Model
 ### Lottery Ticket
 ### Dynamic Pruning Model
