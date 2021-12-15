@@ -58,6 +58,7 @@ class PenguinModel(nn.Module):
 We put this model through four different trials in order to test our pruning method. Each time the model was trained, it was trained for 4,000 epochs with a training rate of 0.0001.
 ### Unpruned Model
 First, we trained and tested this model without any pruning at all. On the test data, the model performed with a loss of 0.4699.
+
 ![Unpruned Model Training Performance](./penguin_graphs/penguins_unpruned.png)
 
 (Note that there were 4 batches per epoch, and performance during training was recorded per epoch - 4 units on the x-axis of these graphs corresponds to 1 epoch of training.)
@@ -67,6 +68,7 @@ Next, we tested the model after pruning the 30% lowest weights from the model. A
 This trial is defined by training a model normally and then pruning the fully-trained model. Because the training part is untouched, we reused the model trained from the first trial.
 ### Lottery Ticket
 Third, we tested the performance of the model using the Lottery Ticket method, by resetting the weights and biases of the model to its original initialization without resetting the pruning. The model performed with a loss of 0.4672 on the test data.
+
 ![Lottery Ticket Model Training Performance](./penguin_graphs/penguins_lottery.png)
 ### Dynamic Pruning Model
 Finally, we reset the model in order to test our pruning method. For this model, we pruned the 17% lowest weights from the model 1/3rd and 2/3rds of the way through training, for a total of just over 30% of the weights removed. The model performed with a loss of 0.4289 on the test data.
