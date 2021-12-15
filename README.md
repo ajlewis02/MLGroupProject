@@ -185,15 +185,42 @@ Therefore, the dynamic purining method works better for pruning such netowrks th
 However, the dynamic pruning did not prove to be better than one shot pruning, for more solid conclusion more trials are required. 
 
 # CIFAR-10
+[CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset has 10 classes: ‘airplane’, ‘automobile’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’. The images in CIFAR-10 are of size 3x32x32, i.e. 3-channel color images of 32x32 pixels in size. It consists of 50000 images in training set and 10000 for the testset.
 ## Data Preprocessing
+Pytorch provides support for CIFAR-10 dataset. The images are stored in PIL format and to be used in pytorch need to be converted into tensors.
 ## Model Design
+Model used here is a convolutional network, consisting of 3 convolutional layers followed by 2 fully connected layer. There is a pooling operation applied after second and third convolutional layer and ouput of all the convolutional layer passes through relu function. Softmax is applied to the ouput.
+``` python
+def forward(self,x):
+    x = F.relu(self.conv1(x))
+    x = self.pool(F.relu(self.conv2(x)))
+    x = self.pool(F.relu(self.conv3(x)))
+    x = torch.flatten(x,1)
+    x = F.relu(self.fc1(x))
+    x = F.softmax(self.fc2(x), dim=1)
+    return x
+```
 ## Trials
+Model was trained for 50 epochs both with and without pruning ans was able to reach ~73% accuracy.
 ### Unpruned Model
+Model was first trained without any pruning to establish a baseline. It started with a loss of 2.162, after training for 50 epochs it was able to reach minimum loss of 1.530, giving 73% accuracy on test set.
+![Unpruned Model Training Performance](./cifar_graphs/custom-unpruned.png)
 ### Pruned Model
-### Lottery Ticket
+Pruning was done with a random approach. 5 random epochs were selected where unstructured pruning was performed, removing 20% of the convolutional weigths and 40% of the fully connected weights.
 ### Dynamic Pruning Model
+Model started with a loss of 2.164, after running for 50 epochs it showed a minimum loss of 1.520. This model converged faster than the non-pruned model.
+![Pruned Model Training Performance](./cifar_graphs/custom-pruned.png)
 ## Running The Code
+To start pruning just uncomment the below given snippet in the training loop
+``` python
+if epoch in pruning_epochs:
+      prune_model(net)
+      print("pruning....")
+```
 ## CIFAR-10 Conclusions
+Initial training pace of the model with pruning was similar to the unpruned model, but after the first pruning step was applied to the model it was able to reach a lower loss faster than unpruned model. Although, once the pruning step was applied there was a spike in loss and the model had to re-learn to make up for the lost weights.
+
+The pruning approach gave a model with similar accuracy with increased sparsity and faster convergence.
 # Conclusion
 # References
 [1] Frankle, J., & Carbin, M. (2019). The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks. arXiv: Learning.
