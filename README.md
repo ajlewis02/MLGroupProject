@@ -87,9 +87,47 @@ device = "cpu"
 Using the unpruned model performance as a baseline, we can note improved performance from both the lottery ticket method and our dynamic pruning method. The model produced by normal pruning seemed to perform slightly worse than the baseline.
 
 Due to time and resource constraints, the models could not be trained until perfect convergence. However, the unpruned and lottery ticket models seem to have very nearly converged by the end of the 4,000 epochs. However, the model trained with dynamic pruning seems to have not converged within 4,000 epochs, which suggests that dynamic pruning improves a model's capability to learn.
+
 # Fashion MNIST
 
-## Model Metrics Provided in Colab Pages
+# Note: Model Metrics and details Provided in Colab Pages
+
+# Fashion MNIST
+An alternative to regular MNIST, this dataset provides the familiarity and ease of use working with MNIST, while also giving new features and outputs for the learner to look for. The dataset is composed of 70,000 training and test images, with each image being a 24x24 pixel image of one of 10 outputs:
+* T-shirt/top
+* Trouser
+* Pullover
+* Dress
+* Coat
+* Sandal
+* Shirt
+* Sneaker
+* Bag
+* Ankle Boot  
+
+## Model Design
+Unlike the Penguin Dataset, the model used for Fashion MNIST becomes more in depth in order to test our pruning methods on more involved models. As such, this estimator is composed of two convolutional layers, two more linear layer after flattening, and finally an output layer composed of a modified version of softmax. Between these layers are ReLU activation functions and pooling to pull hidden features of the model. All of these steps can be seen in the code below: 
+```python
+class FashionModel(nn.Module):
+    def __init__(self):
+        super(FashionModel, self).__init__()
+
+        self.stack = nn.Sequential(
+            nn.Conv2d(1, 32, 3, 1),
+            nn.ReLU(),
+            nn.Conv2d(32, 64, 3, 1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Flatten(1),
+            nn.Linear(9216, 128),
+            nn.ReLU(),
+            nn.Linear(128, 10),
+            nn.LogSoftmax(dim=1),
+        )
+
+    def forward(self, x):
+        return self.stack(x)
+```
 
 ### Unpruned Model
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1GOZwJFO1r4FI8VvrhQCYka0oQaW7tait?usp=sharing)
@@ -103,7 +141,7 @@ Due to time and resource constraints, the models could not be trained until perf
 ### Dynamic Pruning Model
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1cL2z82Brv3aPKEPvJFbGldJIRYnEzrDg?usp=sharing)
 
-### Fashion MNIST Conclusions
+# Fashion MNIST Conclusions
 For larger models, pruning was more of a detriment to model train time than helping short term. Increasing training/pruning time for more accurate model would help, but speed of model train time would suffer as a result.
 
 The model was not trained to convergance in order to see how well the result performed under time constraint. In the future, training to convergance may provide insight on how well the pruning methods would fair under regular conditions.
