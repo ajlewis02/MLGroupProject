@@ -88,10 +88,9 @@ Using the unpruned model performance as a baseline, we can note improved perform
 
 Due to time and resource constraints, the models could not be trained until perfect convergence. However, the unpruned and lottery ticket models seem to have very nearly converged by the end of the 4,000 epochs. However, the model trained with dynamic pruning seems to have not converged within 4,000 epochs, which suggests that dynamic pruning improves a model's capability to learn.
 
+# Fashion MNIST
 
 ### Note: Model Metrics and details Provided in Colab Pages
-
-# Fashion MNIST
 An alternative to regular MNIST, this dataset provides the familiarity and ease of use working with MNIST, while also giving new features and outputs for the learner to look for. The dataset is composed of 70,000 training and test images, with each image being a 24x24 pixel image of one of 10 outputs:
 * T-shirt/top
 * Trouser
